@@ -34,4 +34,8 @@ public class Monster {
     public int getMoney() {
         return money;
     }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
 }

@@ -6,6 +6,8 @@ import com.company.Database.Characters.Character;
 import com.company.Database.Characters.Characters;
 import com.company.Database.Weapons.Weapon;
 import com.company.Database.Weapons.Weapons;
+import com.company.Location.Location;
+import com.company.Location.SafeLocation.SafeHouse;
 
 public class Player {
     private Character selectedCharacter;
@@ -14,9 +16,12 @@ public class Player {
 
     private Inventory inventory;
 
+    private Location playerLocation;
+
     private int damage;
     private int blockValue;
     private int health;
+    private int maxHealth;
     private int money;
 
     public Player(int characterId, int weaponId, int armorId) {
@@ -24,21 +29,31 @@ public class Player {
         this.selectedWeapon = Weapons.getWeaponById(weaponId);
         this.selectedArmor = Armors.getArmorById(armorId);
 
-        this.inventory = new Inventory();
-
         if (selectedCharacter != null && selectedWeapon != null && selectedArmor != null) {
             this.damage = this.selectedWeapon.getDamage() + this.selectedCharacter.getDamage();
             this.blockValue = this.selectedArmor.getBlock();
-            this.health = this.selectedCharacter.getHealth();
+            this.maxHealth = this.selectedCharacter.getHealth();
+            this.health = this.maxHealth;
             this.money = this.selectedCharacter.getMoney();
         } else {
             System.out.println("Error on choosing character, weapon or armor");
         }
 
+        this.inventory = new Inventory();
+        this.playerLocation = new SafeHouse();
+
+    }
+
+    public void setPlayerLocation(Location playerLocation) {
+        this.playerLocation = playerLocation;
     }
 
     public void addMoney(int amount) {
         this.money += amount;
+    }
+
+    public int getMaxHealth() {
+        return this.maxHealth;
     }
 
     public void setHealth(int health) {
@@ -46,18 +61,18 @@ public class Player {
     }
 
     public int getDamage() {
-        return damage;
+        return this.damage;
     }
 
     public int getBlockValue() {
-        return blockValue;
+        return this.blockValue;
     }
 
     public int getHealth() {
-        return health;
+        return this.health;
     }
 
     public int getMoney() {
-        return money;
+        return this.money;
     }
 }
