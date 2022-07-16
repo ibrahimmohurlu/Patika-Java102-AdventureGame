@@ -7,8 +7,8 @@ import com.company.Player.Player;
 public class Cave extends BattleLocation {
     public Cave() {
         super();
-        super.numberOfEnemies = rng.nextInt(3) + 1;
-        super.monsters = new Monster[numberOfEnemies];
+        this.numberOfEnemies = this.rng.nextInt(3) + 1;
+        this.monsters = new Monster[numberOfEnemies];
         for (int i = 0; i < monsters.length; i++) {
             monsters[i] = new Zombie();
         }
@@ -19,7 +19,4 @@ public class Cave extends BattleLocation {
         return null;
     }
 
-    public void combat() {
-
-    }
 }

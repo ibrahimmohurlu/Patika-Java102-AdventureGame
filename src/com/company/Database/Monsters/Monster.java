@@ -35,7 +35,7 @@ public class Monster {
         return money;
     }
 
-    public void setHealth(int health) {
-        this.health = health;
+    public void receiveDamage(int damage) {
+        this.health -= damage;
     }
 }

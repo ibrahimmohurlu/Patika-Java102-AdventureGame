@@ -7,8 +7,8 @@ import com.company.Player.Player;
 public class Forest extends BattleLocation {
     public Forest() {
         super();
-        super.numberOfEnemies = rng.nextInt(3) + 1;
-        super.monsters = new Monster[numberOfEnemies];
+        this.numberOfEnemies = this.rng.nextInt(3) + 1;
+        this.monsters = new Monster[numberOfEnemies];
         for (int i = 0; i < monsters.length; i++) {
             monsters[i] = new Vampire();
         }
@@ -19,8 +19,5 @@ public class Forest extends BattleLocation {
         return null;
     }
 
-    @Override
-    public void combat() {
 
-    }
 }
