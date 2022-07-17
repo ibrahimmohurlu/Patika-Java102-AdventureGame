@@ -9,8 +9,8 @@ import com.company.Player.Player;
 public class Main {
 
     public static void main(String[] args) {
-        Game g = new Game();
-        g.start();
+        Game game = new Game();
+        game.start();
 
     }
 }
