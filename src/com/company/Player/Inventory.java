@@ -1,11 +1,16 @@
 package com.company.Player;
 
+
 public class Inventory {
-    private boolean water = false;
-    private boolean food = false;
-    private boolean firewood = false;
+    private boolean water;
+    private boolean food;
+    private boolean firewood;
 
     public Inventory() {
+
+        this.water = false;
+        this.food = false;
+        this.firewood = false;
     }
 
     public boolean isWater() {

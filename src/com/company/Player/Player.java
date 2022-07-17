@@ -48,12 +48,35 @@ public class Player {
         this.playerLocation = playerLocation;
     }
 
+    public void setMoney(int money) {
+        this.money = money;
+    }
+
+    public void setSelectedWeapon(Weapon selectedWeapon) {
+        this.selectedWeapon = selectedWeapon;
+    }
+
+    public void setSelectedArmor(Armor selectedArmor) {
+        this.selectedArmor = selectedArmor;
+    }
+
     public void addMoney(int amount) {
         this.money += amount;
     }
 
     public int getMaxHealth() {
         return this.maxHealth;
+    }
+    public Inventory getInventory(){
+        return this.inventory;
+    }
+
+    public Weapon getSelectedWeapon() {
+        return selectedWeapon;
+    }
+
+    public Armor getSelectedArmor() {
+        return selectedArmor;
     }
 
     public void setHealth(int health) {
@@ -74,5 +97,9 @@ public class Player {
 
     public int getMoney() {
         return this.money;
+    }
+
+    public void receiveDamage(int damage) {
+        this.health -= (damage - this.blockValue);
     }
 }

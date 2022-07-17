@@ -9,15 +9,19 @@ public class Forest extends BattleLocation {
         super();
         this.numberOfEnemies = this.rng.nextInt(3) + 1;
         this.monsters = new Monster[numberOfEnemies];
+        this.itemDrops = "Firewood";
         for (int i = 0; i < monsters.length; i++) {
             monsters[i] = new Vampire();
         }
     }
 
     @Override
-    public Player action(Player p) {
-        return null;
+    public void action(Player p) {
+
     }
 
-
+    @Override
+    protected void receiveItem(Player p) {
+        p.getInventory().setFirewood(true);
+    }
 }

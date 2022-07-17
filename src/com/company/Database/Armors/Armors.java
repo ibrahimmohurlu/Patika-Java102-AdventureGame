@@ -16,6 +16,10 @@ public class Armors {
 
     }
 
+    public static Map<Integer, Armor> getArmorsData() {
+        return armorsData;
+    }
+
     public static Armor getArmorById(int id) {
         return armorsData.get(id);
     }

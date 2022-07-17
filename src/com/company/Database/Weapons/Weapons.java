@@ -13,6 +13,11 @@ public class Weapons{
     private Weapons(){
 
     }
+
+    public static Map<Integer, Weapon> getWeaponsData() {
+        return weaponsData;
+    }
+
     public static Weapon getWeaponById(int id){
         return weaponsData.get(id);
     }
