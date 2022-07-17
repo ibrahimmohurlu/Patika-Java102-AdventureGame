@@ -10,16 +10,13 @@ public class River extends BattleLocation {
         super();
         this.numberOfEnemies = this.rng.nextInt(3) + 1;
         this.itemDrops = "Water";
+        this.moneyDrop = 35;
         this.monsters = new Monster[numberOfEnemies];
         for (int i = 0; i < monsters.length; i++) {
             monsters[i] = new Bear();
         }
     }
 
-    @Override
-    public void action(Player p) {
-
-    }
 
     @Override
     protected void receiveItem(Player p) {

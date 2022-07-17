@@ -1,6 +1,7 @@
 package com.company;
 
 
+import com.company.Game.Game;
 import com.company.Location.SafeLocation.ToolStore;
 import com.company.Player.Player;
 
@@ -8,8 +9,8 @@ import com.company.Player.Player;
 public class Main {
 
     public static void main(String[] args) {
-        ToolStore ts = new ToolStore();
-        ts.action(new Player(1, 2, 1));
+        Game g = new Game();
+        g.start();
 
     }
 }

@@ -12,6 +12,11 @@ public class Characters {
     }
     private Characters(){
     }
+
+    public static Map<Integer, Character> getCharactersData() {
+        return charactersData;
+    }
+
     public static Character getCharacterById(int id){
         return charactersData.get(id);
     }

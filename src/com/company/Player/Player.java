@@ -48,8 +48,16 @@ public class Player {
         this.playerLocation = playerLocation;
     }
 
+    public Location getPlayerLocation() {
+        return playerLocation;
+    }
+
     public void setMoney(int money) {
         this.money = money;
+    }
+
+    public String getSelectedCharacterName() {
+        return this.selectedCharacter.getName();
     }
 
     public void setSelectedWeapon(Weapon selectedWeapon) {
@@ -67,7 +75,8 @@ public class Player {
     public int getMaxHealth() {
         return this.maxHealth;
     }
-    public Inventory getInventory(){
+
+    public Inventory getInventory() {
         return this.inventory;
     }
 

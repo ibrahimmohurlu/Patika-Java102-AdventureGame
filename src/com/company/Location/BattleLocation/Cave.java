@@ -10,14 +10,10 @@ public class Cave extends BattleLocation {
         this.numberOfEnemies = this.rng.nextInt(3) + 1;
         this.monsters = new Monster[numberOfEnemies];
         this.itemDrops = "Food";
+        this.moneyDrop = 15;
         for (int i = 0; i < monsters.length; i++) {
             monsters[i] = new Zombie();
         }
-    }
-
-    @Override
-    public void action(Player p) {
-
     }
 
     @Override

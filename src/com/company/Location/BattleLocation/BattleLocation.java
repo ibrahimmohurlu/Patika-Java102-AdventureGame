@@ -9,11 +9,14 @@ import java.util.Random;
 import java.util.Scanner;
 
 public abstract class BattleLocation extends Location {
-    public abstract void action(Player p);
+    public void action(Player p) {
+        this.combat(p);
+    }
 
     protected Monster[] monsters;
     protected int numberOfEnemies;
     protected String itemDrops;
+    protected int moneyDrop;
     Random rng = new Random();
 
     protected abstract void receiveItem(Player p);
@@ -31,15 +34,15 @@ public abstract class BattleLocation extends Location {
             System.out.println("Select an enemy index to attack !");
 
             int index = scanner.nextInt() - 1;
-            if (index >= monsters.length) {
+            if (index >= monsters.length || index < 0) {
                 System.out.println("Please select a valid enemy index!");
             } else {
-                System.out.println("Attacked " + (index + 1) + "." + monsters[index].getName() + " and monster received " + p.getDamage() + " damage.");
-                monsters[index].receiveDamage(p.getDamage());
+                System.out.println("Attacked " + (index + 1) + "." + monsters[index].getName() + " and monster received " + (p.getDamage() + p.getSelectedWeapon().getDamage()) + " damage.");
+                monsters[index].receiveDamage(p.getDamage() + p.getSelectedWeapon().getDamage());
                 for (int i = 0; i < monsters.length; i++) {
                     //only alive monster can attack
-                    if(monsters[i].getHealth()>0){
-                        System.out.println(String.format("You received %d damage from %d. %s", monsters[i].getDamage() - p.getBlockValue(), i + 1, monsters[i].getName()));
+                    if (monsters[i].getHealth() > 0) {
+                        System.out.println(String.format("You received %d damage from %d. %s", (monsters[i].getDamage() - p.getBlockValue()), i + 1, monsters[i].getName()));
                         p.receiveDamage(monsters[i].getDamage());
                     }
 
@@ -52,8 +55,9 @@ public abstract class BattleLocation extends Location {
 
         }
         if (Arrays.stream(monsters).allMatch(m -> m.getHealth() <= 0)) {
-            System.out.println("You won the battle! You received " + this.itemDrops + ".");
+            System.out.println("You won the battle! You received " + this.itemDrops + " and " + this.moneyDrop + " coin.");
             this.receiveItem(p);
+            p.addMoney(this.moneyDrop);
         }
 
 
