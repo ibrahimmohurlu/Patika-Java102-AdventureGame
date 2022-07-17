@@ -7,6 +7,7 @@ import com.company.Location.BattleLocation.Forest;
 import com.company.Location.BattleLocation.River;
 import com.company.Location.SafeLocation.SafeHouse;
 import com.company.Location.SafeLocation.ToolStore;
+import com.company.Player.Inventory;
 import com.company.Player.Player;
 
 import java.util.Scanner;
@@ -55,6 +56,11 @@ public class Game {
                 case 3:
                     player.setPlayerLocation(new SafeHouse());
                     player.getPlayerLocation().action(player);
+                    Inventory playerInventory = player.getInventory();
+                    if (playerInventory.isFood() && playerInventory.isWater() && playerInventory.isFirewood()) {
+                        System.out.println("You have all the items to survive game is ended but you can continue to figth!");
+                        scanner.nextInt();
+                    }
                     break;
                 case 4:
                     player.setPlayerLocation(new Cave());
