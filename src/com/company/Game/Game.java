@@ -4,6 +4,7 @@ import com.company.Database.Characters.Character;
 import com.company.Database.Characters.Characters;
 import com.company.Location.BattleLocation.Cave;
 import com.company.Location.BattleLocation.Forest;
+import com.company.Location.BattleLocation.Mine;
 import com.company.Location.BattleLocation.River;
 import com.company.Location.SafeLocation.SafeHouse;
 import com.company.Location.SafeLocation.ToolStore;
@@ -75,6 +76,10 @@ public class Game {
                     player.getPlayerLocation().action(player);
                     break;
                 case 7:
+                    player.setPlayerLocation(new Mine());
+                    player.getPlayerLocation().action(player);
+                    break;
+                case 8:
                     gameEnded = true;
                     break;
                 default:
@@ -98,7 +103,8 @@ public class Game {
         System.out.println("[4] Go to Cave");
         System.out.println("[5] Go to Forest");
         System.out.println("[6] Go to River");
-        System.out.println("[7] Quit");
+        System.out.println("[7] Go to Mine");
+        System.out.println("[8] Quit");
     }
 
 
