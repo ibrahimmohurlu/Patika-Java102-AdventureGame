@@ -22,45 +22,64 @@ public abstract class BattleLocation extends Location {
     protected abstract void receiveItem(Player p);
 
     public void combat(Player p) {
-        Scanner scanner = new Scanner(System.in);
         String[] tokens = this.getClass().getName().split("\\.");
         String battleLocationName = tokens[tokens.length - 1];
-        System.out.println(String.format("You have entered the %s. There are %d %ss you have to battle!",
-                battleLocationName, this.numberOfEnemies, monsters[0].getName()));
+        System.out.println(String.format("You have entered the %s. There are %d %ss you have to battle!", battleLocationName, this.numberOfEnemies, monsters[0].getName()));
 
-
-        while (!Arrays.stream(monsters).allMatch(m -> m.getHealth() <= 0)) {
-            System.out.println("Your health is " + p.getHealth() + ". Enemies = " + getMonsterStatus());
-            System.out.println("Select an enemy index to attack !");
-
-            int index = scanner.nextInt() - 1;
-            if (index >= monsters.length || index < 0) {
-                System.out.println("Please select a valid enemy index!");
-            } else {
-                System.out.println("Attacked " + (index + 1) + "." + monsters[index].getName() + " and monster received " + (p.getDamage() + p.getSelectedWeapon().getDamage()) + " damage.");
-                monsters[index].receiveDamage(p.getDamage() + p.getSelectedWeapon().getDamage());
-                for (int i = 0; i < monsters.length; i++) {
-                    //only alive monster can attack
-                    if (monsters[i].getHealth() > 0) {
-                        System.out.println(String.format("You received %d damage from %d. %s", (monsters[i].getDamage() - p.getBlockValue()), i + 1, monsters[i].getName()));
-                        p.receiveDamage(monsters[i].getDamage());
-                    }
-
-                }
+        //continue the loop until all the monsters are dead.
+        if (Math.random() >= 0.5) {
+            System.out.println("You are lucky! You attack first!");
+            while (!Arrays.stream(monsters).allMatch(m -> m.getHealth() <= 0)) {
+                System.out.println("Your health is " + p.getHealth() + ". Enemies = " + getMonsterStatus());
+                playerAttack(p);
+                monsterAttack(p);
                 if (p.getHealth() <= 0) {
                     System.out.println("You are dead!");
                     break;
                 }
             }
-
+        } else {
+            System.out.println("Luck is not with you this time! Monsters attack you first!");
+            while (!Arrays.stream(monsters).allMatch(m -> m.getHealth() <= 0)) {
+                monsterAttack(p);
+                System.out.println("Your health is " + p.getHealth() + ". Enemies = " + getMonsterStatus());
+                playerAttack(p);
+                if (p.getHealth() <= 0) {
+                    System.out.println("You are dead!");
+                    break;
+                }
+            }
         }
+
         if (Arrays.stream(monsters).allMatch(m -> m.getHealth() <= 0)) {
             System.out.println("You won the battle! You received " + this.itemDrops + " and " + this.moneyDrop + " coin.");
             this.receiveItem(p);
             p.addMoney(this.moneyDrop);
         }
+    }
 
 
+    private void playerAttack(Player p) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Select an enemy index to attack !");
+        int index = scanner.nextInt() - 1;
+        if (index >= monsters.length || index < 0) {
+            System.out.println("Please select a valid enemy index!");
+        } else {
+            System.out.println("Attacked " + (index + 1) + "." + monsters[index].getName() + " and monster received " + (p.getDamage() + p.getSelectedWeapon().getDamage()) + " damage.");
+            monsters[index].receiveDamage(p.getDamage() + p.getSelectedWeapon().getDamage());
+        }
+    }
+
+    private void monsterAttack(Player p) {
+        for (int i = 0; i < monsters.length; i++) {
+            //only alive monster can attack
+            if (monsters[i].getHealth() > 0) {
+                System.out.println(String.format("You received %d damage from %d. %s", (monsters[i].getDamage() - p.getBlockValue()), i + 1, monsters[i].getName()));
+                p.receiveDamage(monsters[i].getDamage());
+            }
+
+        }
     }
 
     protected String getMonsterStatus() {
